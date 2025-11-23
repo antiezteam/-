@@ -1,0 +1,294 @@
+-- ANTI EZ TEAM GUI V 2.3
+local function createGUI()
+	local Players = game:GetService("Players")
+	local player = Players.LocalPlayer
+	local playerGui = player:WaitForChild("PlayerGui")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+	local ScreenGui = Instance.new("ScreenGui")
+	ScreenGui.Name = "AntiEzTeamGUI"
+	ScreenGui.Parent = playerGui
+
+	-- ГОРИЗОНТАЛЬНЫЙ ГЛАВНЫЙ ФРЕЙМ
+	local MainFrame = Instance.new("Frame")
+	MainFrame.Name = "MainFrame"
+	MainFrame.Size = UDim2.new(0, 850, 0, 500)
+	MainFrame.Position = UDim2.new(0.5, -425, 0.5, -250)
+	MainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	MainFrame.BorderSizePixel = 2
+	MainFrame.BorderColor3 = Color3.new(0.3, 0.3, 0.3)
+	MainFrame.Parent = ScreenGui
+
+	local TitleLabel = Instance.new("TextLabel")
+	TitleLabel.Name = "TitleLabel"
+	TitleLabel.Size = UDim2.new(1, 0, 0, 40)
+	TitleLabel.Position = UDim2.new(0, 0, 0, 0)
+	TitleLabel.BackgroundColor3 = Color3.new(0.2, 0.2, 0.4)
+	TitleLabel.Text = "ANTIEZTEAM GUI V 2.3"
+	TitleLabel.TextColor3 = Color3.new(1, 1, 1)
+	TitleLabel.TextScaled = true
+	TitleLabel.Parent = MainFrame
+
+	-- БОЛЬШАЯ КНОПКА "ВЫБРАТЬ ИГРУ"
+	local SelectGameButton = Instance.new("TextButton")
+	SelectGameButton.Name = "SelectGameButton"
+	SelectGameButton.Size = UDim2.new(0.9, 0, 0, 60)
+	SelectGameButton.Position = UDim2.new(0.05, 0, 0.85, 0)
+	SelectGameButton.BackgroundColor3 = Color3.new(0.9, 0.5, 0.1)
+	SelectGameButton.Text = "ВЫБРАТЬ ИГРУ"
+	SelectGameButton.TextColor3 = Color3.new(1, 1, 1)
+	SelectGameButton.TextScaled = true
+	SelectGameButton.TextSize = 20
+	SelectGameButton.Parent = MainFrame
+
+	-- TextBox слева
+	local ScriptBox = Instance.new("TextBox")
+	ScriptBox.Name = "ScriptBox"
+	ScriptBox.Size = UDim2.new(0.25, 0, 0.6, -50)
+	ScriptBox.Position = UDim2.new(0.02, 0, 0.15, 0)
+	ScriptBox.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+	ScriptBox.TextColor3 = Color3.new(1, 1, 1)
+	ScriptBox.PlaceholderText = "Enter your script"
+	ScriptBox.Text = ""
+	ScriptBox.TextScaled = true
+	ScriptBox.TextWrapped = true
+	ScriptBox.Parent = MainFrame
+
+	-- КНОПКА EXECUTE под TextBox
+	local ExecuteButton = Instance.new("TextButton")
+	ExecuteButton.Name = "ExecuteButton"
+	ExecuteButton.Size = UDim2.new(0.25, 0, 0, 40)
+	ExecuteButton.Position = UDim2.new(0.02, 0, 0.75, -40)
+	ExecuteButton.BackgroundColor3 = Color3.new(0.4, 0.8, 0.2)
+	ExecuteButton.Text = "EXECUTE"
+	ExecuteButton.TextColor3 = Color3.new(1, 1, 1)
+	ExecuteButton.TextScaled = true
+	ExecuteButton.Parent = MainFrame
+
+	-- ПЕРВЫЙ СТОЛБЕЦ КНОПОК
+	local FEButton = Instance.new("TextButton")
+	FEButton.Name = "FEButton"
+	FEButton.Size = UDim2.new(0.18, 0, 0, 30)
+	FEButton.Position = UDim2.new(0.3, 0, 0.15, 0)
+	FEButton.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
+	FEButton.Text = "FE CADUCUS"
+	FEButton.TextColor3 = Color3.new(1, 1, 1)
+	FEButton.TextScaled = true
+	FEButton.Parent = MainFrame
+
+	local NaturalDisasterButton = Instance.new("TextButton")
+	NaturalDisasterButton.Name = "NaturalDisasterButton"
+	NaturalDisasterButton.Size = UDim2.new(0.18, 0, 0, 30)
+	NaturalDisasterButton.Position = UDim2.new(0.3, 0, 0.25, 0)
+	NaturalDisasterButton.BackgroundColor3 = Color3.new(0.2, 0.6, 0.2)
+	NaturalDisasterButton.Text = "natural disaster"
+	NaturalDisasterButton.TextColor3 = Color3.new(1, 1, 1)
+	NaturalDisasterButton.TextScaled = true
+	NaturalDisasterButton.Parent = MainFrame
+
+	local InfinityYieldButton = Instance.new("TextButton")
+	InfinityYieldButton.Name = "InfinityYieldButton"
+	InfinityYieldButton.Size = UDim2.new(0.18, 0, 0, 30)
+	InfinityYieldButton.Position = UDim2.new(0.3, 0, 0.35, 0)
+	InfinityYieldButton.BackgroundColor3 = Color3.new(0.2, 0.2, 0.8)
+	InfinityYieldButton.Text = "infinity yield"
+	InfinityYieldButton.TextColor3 = Color3.new(1, 1, 1)
+	InfinityYieldButton.TextScaled = true
+	InfinityYieldButton.Parent = MainFrame
+
+	-- ВТОРОЙ СТОЛБЕЦ КНОПОК
+	local RemoteSpyButton = Instance.new("TextButton")
+	RemoteSpyButton.Name = "RemoteSpyButton"
+	RemoteSpyButton.Size = UDim2.new(0.18, 0, 0, 30)
+	RemoteSpyButton.Position = UDim2.new(0.5, 0, 0.15, 0)
+	RemoteSpyButton.BackgroundColor3 = Color3.new(0.7, 0.3, 0.9)
+	RemoteSpyButton.Text = "REMOTE SPY"
+	RemoteSpyButton.TextColor3 = Color3.new(1, 1, 1)
+	RemoteSpyButton.TextScaled = true
+	RemoteSpyButton.Parent = MainFrame
+
+	local FEBypassButton = Instance.new("TextButton")
+	FEBypassButton.Name = "FEBypassButton"
+	FEBypassButton.Size = UDim2.new(0.18, 0, 0, 30)
+	FEBypassButton.Position = UDim2.new(0.5, 0, 0.25, 0)
+	FEBypassButton.BackgroundColor3 = Color3.new(0.1, 0.7, 0.8)
+	FEBypassButton.Text = "FE BYPASS"
+	FEBypassButton.TextColor3 = Color3.new(1, 1, 1)
+	FEBypassButton.TextScaled = true
+	FEBypassButton.Parent = MainFrame
+
+	-- НОВАЯ КНОПКА SERVERSIDE
+	local ServerSideButton = Instance.new("TextButton")
+	ServerSideButton.Name = "ServerSideButton"
+	ServerSideButton.Size = UDim2.new(0.18, 0, 0, 30)
+	ServerSideButton.Position = UDim2.new(0.5, 0, 0.35, 0)
+	ServerSideButton.BackgroundColor3 = Color3.new(0.9, 0.6, 0.1) -- Золотистый
+	ServerSideButton.Text = "SERVERSIDE"
+	ServerSideButton.TextColor3 = Color3.new(1, 1, 1)
+	ServerSideButton.TextScaled = true
+	ServerSideButton.Parent = MainFrame
+
+	-- ТРЕТИЙ СТОЛБЕЦ КНОПОК
+	local ScanButton = Instance.new("TextButton")
+	ScanButton.Name = "ScanButton"
+	ScanButton.Size = UDim2.new(0.18, 0, 0, 30)
+	ScanButton.Position = UDim2.new(0.7, 0, 0.15, 0)
+	ScanButton.BackgroundColor3 = Color3.new(0.2, 0.2, 0.8)
+	ScanButton.Text = "SCAN REMOTES"
+	ScanButton.TextColor3 = Color3.new(1, 1, 1)
+	ScanButton.TextScaled = true
+	ScanButton.Parent = MainFrame
+
+	local AntiezteamDecalButton = Instance.new("TextButton")
+	AntiezteamDecalButton.Name = "AntiezteamDecalButton"
+	AntiezteamDecalButton.Size = UDim2.new(0.18, 0, 0, 30)
+	AntiezteamDecalButton.Position = UDim2.new(0.7, 0, 0.25, 0)
+	AntiezteamDecalButton.BackgroundColor3 = Color3.new(0.8, 0.4, 0.1)
+	AntiezteamDecalButton.Text = "ANTIEZTEAM DECAL"
+	AntiezteamDecalButton.TextColor3 = Color3.new(1, 1, 1)
+	AntiezteamDecalButton.TextScaled = true
+	AntiezteamDecalButton.Parent = MainFrame
+
+	local BtoolsButton = Instance.new("TextButton")
+	BtoolsButton.Name = "BtoolsButton"
+	BtoolsButton.Size = UDim2.new(0.18, 0, 0, 30)
+	BtoolsButton.Position = UDim2.new(0.7, 0, 0.35, 0)
+	BtoolsButton.BackgroundColor3 = Color3.new(0.6, 0.3, 0.8)
+	BtoolsButton.Text = "BTOOLS"
+	BtoolsButton.TextColor3 = Color3.new(1, 1, 1)
+	BtoolsButton.TextScaled = true
+	BtoolsButton.Parent = MainFrame
+
+	-- ФУНКЦИЯ ДЛЯ SERVERSIDE КНОПКИ
+	local function tryServerSideAction()
+		-- Пытаемся найти существующие RemoteEvents в игре
+		local foundRemote = false
+		
+		-- Ищем в ReplicatedStorage
+		for _, obj in pairs(ReplicatedStorage:GetDescendants()) do
+			if obj:IsA("RemoteEvent") then
+				print("Найден RemoteEvent: " .. obj.Name)
+				-- Пробуем отправить событие
+				local success, errorMsg = pcall(function()
+					obj:FireServer("AntiEzTeamGUI_Action", player.Name, "ServerSide Button Pressed")
+				end)
+				if success then
+					print("ServerSide действие отправлено через: " .. obj.Name)
+					foundRemote = true
+				else
+					warn("Ошибка отправки через " .. obj.Name .. ": " .. errorMsg)
+				end
+			end
+		end
+
+		-- Ищем в других местах
+		local locations = {workspace, game:GetService("Lighting")}
+		for _, location in pairs(locations) do
+			for _, obj in pairs(location:GetDescendants()) do
+				if obj:IsA("RemoteEvent") then
+					print("Найден RemoteEvent: " .. obj.Name .. " в " .. location.Name)
+					local success, errorMsg = pcall(function()
+						obj:FireServer("AntiEzTeamGUI_Action")
+					end)
+					if success then
+						print("ServerSide действие отправлено через: " .. obj.Name)
+						foundRemote = true
+					end
+				end
+			end
+		end
+
+		if not foundRemote then
+			-- Если не нашли RemoteEvents, создаем визуальный эффект для всех игроков
+			print("RemoteEvents не найдены, создаем визуальный эффект...")
+			
+			-- Создаем часть которая будет видна всем (работает только если сервер позволяет)
+			local part = Instance.new("Part")
+			part.Name = "AntiEzTeamGUI_ServerSideEffect"
+			part.Size = Vector3.new(5, 5, 5)
+			part.Position = player.Character and player.Character:FindFirstChild("HumanoidRootPart") and 
+							player.Character.HumanoidRootPart.Position + Vector3.new(0, 10, 0) or Vector3.new(0, 10, 0)
+			part.BrickColor = BrickColor.new("Bright orange")
+			part.Material = Enum.Material.Neon
+			part.Anchored = true
+			part.CanCollide = false
+			
+			local success, errorMsg = pcall(function()
+				part.Parent = workspace
+			end)
+			
+			if success then
+				print("Создан визуальный эффект для всех игроков!")
+				-- Удаляем через 5 секунд
+				wait(5)
+				part:Destroy()
+			else
+				warn("Не удалось создать визуальный эффект: " .. errorMsg)
+				print("ServerSide: Действие выполнено (только локально)")
+			end
+		end
+	end
+
+	-- ФУНКЦИЯ ПЕРЕМЕЩЕНИЯ ТОЛЬКО ДЛЯ ПК
+	local function makeDraggable(gui)
+		local dragging = false
+		local dragInput, dragStart, startPos
+
+		gui.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				dragging = true
+				dragStart = input.Position
+				startPos = gui.Position
+
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+
+		gui.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement then
+				dragInput = input
+			end
+		end)
+
+		game:GetService("UserInputService").InputChanged:Connect(function(input)
+			if input == dragInput and dragging then
+				local delta = input.Position - dragStart
+				gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+			end
+		end)
+	end
+
+	makeDraggable(MainFrame)
+	makeDraggable(TitleLabel)
+
+	-- ФУНКЦИИ ДЛЯ КНОПОК
+	ExecuteButton.MouseButton1Click:Connect(function()
+		local scriptText = ScriptBox.Text
+		if scriptText and scriptText ~= "" then
+			print("Выполняем скрипт: " .. scriptText)
+			local success, errorMessage = pcall(function()
+				loadstring(scriptText)()
+			end)
+			if not success then
+				warn("Ошибка выполнения скрипта: " .. errorMessage)
+			end
+		else
+			print("Введите скрипт в текстовое поле!")
+		end
+	end)
+
+	ServerSideButton.MouseButton1Click:Connect(function()
+		print("Пытаемся выполнить ServerSide действие...")
+		tryServerSideAction()
+	end)
+
+	-- ... остальные функции кнопок (SelectGameButton, FEButton и т.д.)
+
+	print("ANTIEZTEAM GUI V 2.3 загружено! ServerSide кнопка добавлена")
+end
+
+createGUI()
