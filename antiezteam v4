@@ -1,0 +1,261 @@
+-- ANTIEZ V4 by team antiez
+local function createGUI()
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer
+    local playerGui = player:WaitForChild("PlayerGui")
+    local Lighting = game:GetService("Lighting")
+
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.Name = "AntiEzTeamGUI"
+    ScreenGui.Parent = playerGui
+
+    -- ГОРИЗОНТАЛЬНЫЙ ГЛАВНЫЙ ФРЕЙМ
+    local MainFrame = Instance.new("Frame")
+    MainFrame.Name = "MainFrame"
+    MainFrame.Size = UDim2.new(0, 850, 0, 500)
+    MainFrame.Position = UDim2.new(0.5, -425, 0.5, -250)
+    MainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+    MainFrame.BorderSizePixel = 2
+    MainFrame.BorderColor3 = Color3.new(0.3, 0.3, 0.3)
+    MainFrame.Parent = ScreenGui
+
+    local TitleLabel = Instance.new("TextLabel")
+    TitleLabel.Name = "TitleLabel"
+    TitleLabel.Size = UDim2.new(1, 0, 0, 40)
+    TitleLabel.Position = UDim2.new(0, 0, 0, 0)
+    TitleLabel.BackgroundColor3 = Color3.new(0.2, 0.2, 0.4)
+    TitleLabel.Text = "ANTIEZ V4 by team antiez"
+    TitleLabel.TextColor3 = Color3.new(1, 1, 1)
+    TitleLabel.TextScaled = true
+    TitleLabel.Parent = MainFrame
+
+    -- КНОПКА SERVER
+    local ServerButton = Instance.new("TextButton")
+    ServerButton.Name = "ServerButton"
+    ServerButton.Size = UDim2.new(0.18, 0, 0, 30)
+    ServerButton.Position = UDim2.new(0.3, 0, 0.45, 0)
+    ServerButton.BackgroundColor3 = Color3.new(0.9, 0.3, 0.1) -- Оранжево-красный
+    ServerButton.Text = "SERVER"
+    ServerButton.TextColor3 = Color3.new(1, 1, 1)
+    ServerButton.TextScaled = true
+    ServerButton.Parent = MainFrame
+
+    -- ОСТАЛЬНЫЕ КНОПКИ (FE CADUCUS, natural disaster, infinity yield и т.д.)
+    -- ... остальной код кнопок ...
+
+    -- ФУНКЦИЯ СОЗДАНИЯ ОКНА SERVER
+    local function createServerWindow()
+        -- Окно SERVER
+        local ServerFrame = Instance.new("Frame")
+        ServerFrame.Name = "ServerFrame"
+        ServerFrame.Size = UDim2.new(0, 400, 0, 500)
+        ServerFrame.Position = UDim2.new(0.5, -200, 0.5, -250)
+        ServerFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+        ServerFrame.BorderSizePixel = 2
+        ServerFrame.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+        ServerFrame.Parent = ScreenGui
+
+        -- Заголовок окна
+        local ServerTitle = Instance.new("TextLabel")
+        ServerTitle.Name = "ServerTitle"
+        ServerTitle.Size = UDim2.new(1, 0, 0, 40)
+        ServerTitle.Position = UDim2.new(0, 0, 0, 0)
+        ServerTitle.BackgroundColor3 = Color3.new(0.3, 0.1, 0.1) -- Темно-красный
+        ServerTitle.Text = "SERVER ACTIONS - ВИДНО ВСЕМ"
+        ServerTitle.TextColor3 = Color3.new(1, 1, 1)
+        ServerTitle.TextScaled = true
+        ServerTitle.Parent = ServerFrame
+
+        -- Кнопка закрытия
+        local CloseButton = Instance.new("TextButton")
+        CloseButton.Name = "CloseButton"
+        CloseButton.Size = UDim2.new(0, 30, 0, 30)
+        CloseButton.Position = UDim2.new(1, -35, 0, 5)
+        CloseButton.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
+        CloseButton.Text = "X"
+        CloseButton.TextColor3 = Color3.new(1, 1, 1)
+        CloseButton.TextScaled = true
+        CloseButton.Parent = ServerFrame
+
+        -- Список серверных действий (видны всем)
+        local serverActions = {
+            {"ВЗРЫВЫ ВОКРУГ", Color3.new(1, 0, 0), function()
+                createExplosions()
+            end},
+            {"ГИГАНТСКИЙ КУБ", Color3.new(0, 1, 0), function()
+                createGiantCube()
+            end},
+            {"ОГНЕННЫЙ ШАР", Color3.new(1, 0.5, 0), function()
+                createFireball()
+            end},
+            {"РАДУЖНЫЕ ЧАСТИ", Color3.new(0.5, 0, 1), function()
+                createRainbowParts()
+            end},
+            {"ПАДАЮЩИЕ БЛОКИ", Color3.new(1, 1, 0), function()
+                createFallingBlocks()
+            end}
+        }
+
+        -- Создание кнопок серверных действий
+        for i, action in ipairs(serverActions) do
+            local ActionButton = Instance.new("TextButton")
+            ActionButton.Name = action[1] .. "Button"
+            ActionButton.Size = UDim2.new(0.8, 0, 0, 50)
+            ActionButton.Position = UDim2.new(0.1, 0, 0.1 + (i * 0.15), 0)
+            ActionButton.BackgroundColor3 = action[2]
+            ActionButton.Text = action[1]
+            ActionButton.TextColor3 = Color3.new(1, 1, 1)
+            ActionButton.TextScaled = true
+            ActionButton.Parent = ServerFrame
+
+            -- Функция для кнопки
+            ActionButton.MouseButton1Click:Connect(function()
+                print("Запускаем: " .. action[1])
+                action[3]()
+            end)
+        end
+
+        -- Функция закрытия окна
+        CloseButton.MouseButton1Click:Connect(function()
+            ServerFrame.Visible = false
+        end)
+
+        -- Делаем окно перемещаемым
+        makeDraggable(ServerFrame)
+        makeDraggable(ServerTitle)
+    end
+
+    -- ФУНКЦИИ СЕРВЕРНЫХ ДЕЙСТВИЙ (видны всем)
+
+    local function createExplosions()
+        local character = player.Character
+        if not character then return end
+        
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if not humanoidRootPart then return end
+        
+        local playerPosition = humanoidRootPart.Position
+        
+        for i = 1, 5 do
+            local explosion = Instance.new("Explosion")
+            explosion.Position = playerPosition + Vector3.new(
+                math.random(-10, 10),
+                math.random(5, 15),
+                math.random(-10, 10)
+            )
+            explosion.BlastPressure = 0
+            explosion.BlastRadius = 8
+            explosion.Visible = true
+            explosion.DestroyJointRadiusPercent = 0
+            
+            pcall(function()
+                explosion.Parent = workspace
+            end)
+            wait(0.3)
+        end
+    end
+
+    local function createGiantCube()
+        local part = Instance.new("Part")
+        part.Name = "ANTIEZ_GIANT_CUBE"
+        part.Size = Vector3.new(20, 20, 20)
+        part.Position = Vector3.new(0, 50, 0)
+        part.BrickColor = BrickColor.new("Bright green")
+        part.Material = Enum.Material.Neon
+        part.Anchored = true
+        part.CanCollide = true
+        
+        pcall(function()
+            part.Parent = workspace
+        end)
+        
+        wait(10)
+        pcall(function() part:Destroy() end)
+    end
+
+    local function createFireball()
+        local part = Instance.new("Part")
+        part.Name = "ANTIEZ_FIREBALL"
+        part.Size = Vector3.new(8, 8, 8)
+        part.Position = Vector3.new(0, 100, 0)
+        part.BrickColor = BrickColor.new("Bright orange")
+        part.Material = Enum.Material.Neon
+        part.Anchored = false
+        part.CanCollide = false
+        
+        local fire = Instance.new("Fire")
+        fire.Size = 15
+        fire.Heat = 10
+        fire.Parent = part
+        
+        pcall(function()
+            part.Parent = workspace
+        end)
+        
+        wait(15)
+        pcall(function() part:Destroy() end)
+    end
+
+    local function createRainbowParts()
+        local colors = {"Bright red", "Bright orange", "Bright yellow", "Bright green", "Bright blue", "Bright violet"}
+        
+        for i = 1, 6 do
+            local part = Instance.new("Part")
+            part.Name = "ANTIEZ_RAINBOW_" .. i
+            part.Size = Vector3.new(5, 5, 5)
+            part.Position = Vector3.new(i * 8, 30, 0)
+            part.BrickColor = BrickColor.new(colors[i])
+            part.Material = Enum.Material.Neon
+            part.Anchored = true
+            part.CanCollide = false
+            
+            pcall(function()
+                part.Parent = workspace
+            end)
+        end
+        
+        wait(20)
+        for i = 1, 6 do
+            local part = workspace:FindFirstChild("ANTIEZ_RAINBOW_" .. i)
+            if part then
+                pcall(function() part:Destroy() end)
+            end
+        end
+    end
+
+    local function createFallingBlocks()
+        for i = 1, 10 do
+            local part = Instance.new("Part")
+            part.Name = "ANTIEZ_FALLING_BLOCK_" .. i
+            part.Size = Vector3.new(4, 4, 4)
+            part.Position = Vector3.new(math.random(-50, 50), 100, math.random(-50, 50))
+            part.BrickColor = BrickColor.new("Bright yellow")
+            part.Material = Enum.Material.Plastic
+            part.Anchored = false
+            part.CanCollide = true
+            
+            pcall(function()
+                part.Parent = workspace
+            end)
+        end
+        
+        wait(30)
+        for i = 1, 10 do
+            local part = workspace:FindFirstChild("ANTIEZ_FALLING_BLOCK_" .. i)
+            if part then
+                pcall(function() part:Destroy() end)
+            end
+        end
+    end
+
+    -- Подключаем кнопку SERVER
+    ServerButton.MouseButton1Click:Connect(function()
+        createServerWindow()
+    end)
+
+    -- ... остальные функции и кнопки ...
+
+    print("ANTIEZ V4 by team antiez загружено! Серверные действия добавлены")
+end
+
+createGUI()
