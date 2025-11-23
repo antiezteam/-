@@ -1,0 +1,32 @@
+-- КНОПКА BROOKHAVEN
+local BrookhavenButton = Instance.new("TextButton")
+BrookhavenButton.Name = "BrookhavenButton"
+BrookhavenButton.Size = UDim2.new(0.18, 0, 0, 30)
+BrookhavenButton.Position = UDim2.new(0.7, 0, 0.55, 0)
+BrookhavenButton.BackgroundColor3 = Color3.new(0.1, 0.6, 0.3)
+BrookhavenButton.Text = "BROOKHAVEN"
+BrookhavenButton.TextColor3 = Color3.new(1, 1, 1)
+BrookhavenButton.TextScaled = true
+BrookhavenButton.Parent = MainFrame
+
+-- КНОПКА BLOX FRUITS
+local BloxFruitsButton = Instance.new("TextButton")
+BloxFruitsButton.Name = "BloxFruitsButton"
+BloxFruitsButton.Size = UDim2.new(0.18, 0, 0, 30)
+BloxFruitsButton.Position = UDim2.new(0.7, 0, 0.65, 0)
+BloxFruitsButton.BackgroundColor3 = Color3.new(0.8, 0.4, 0.1)
+BloxFruitsButton.Text = "BLOX FRUITS"
+BloxFruitsButton.TextColor3 = Color3.new(1, 1, 1)
+BloxFruitsButton.TextScaled = true
+BloxFruitsButton.Parent = MainFrame
+
+-- ФУНКЦИИ ДЛЯ КНОПОК
+BrookhavenButton.MouseButton1Click:Connect(function()
+    print("Телепортируем в Brookhaven!")
+    game:GetService("TeleportService"):Teleport(4924922222) -- ID Brookhaven
+end)
+
+BloxFruitsButton.MouseButton1Click:Connect(function()
+    print("Телепортируем в Blox Fruits!")
+    game:GetService("TeleportService"):Teleport(2753915549) -- ID Blox Fruits
+end)
