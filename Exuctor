@@ -1,0 +1,187 @@
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Создаем основной ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AntiEz_GUI"
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screenGui.Parent = playerGui
+
+-- Основной фрейм
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Size = UDim2.new(0, 400, 0, 500)
+mainFrame.Position = UDim2.new(0.5, -200, 0.5, -250)
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+mainFrame.BorderSizePixel = 0
+mainFrame.ClipsDescendants = true
+mainFrame.Parent = screenGui
+
+-- Скругление углов
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 8)
+corner.Parent = mainFrame
+
+-- Верхняя панель
+local topBar = Instance.new("Frame")
+topBar.Name = "TopBar"
+topBar.Size = UDim2.new(1, 0, 0, 40)
+topBar.Position = UDim2.new(0, 0, 0, 0)
+topBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+topBar.BorderSizePixel = 0
+topBar.Parent = mainFrame
+
+local topBarCorner = Instance.new("UICorner")
+topBarCorner.CornerRadius = UDim.new(0, 8)
+topBarCorner.Parent = topBar
+
+-- Заголовок
+local title = Instance.new("TextLabel")
+title.Name = "Title"
+title.Size = UDim2.new(0, 200, 0, 30)
+title.Position = UDim2.new(0, 10, 0, 5)
+title.BackgroundTransparency = 1
+title.Text = "AntiEz executor v1.0.0"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 16
+title.Font = Enum.Font.GothamBold
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = topBar
+
+-- Панель навигации слева
+local navFrame = Instance.new("Frame")
+navFrame.Name = "NavigationFrame"
+navFrame.Size = UDim2.new(0, 150, 0, 460)
+navFrame.Position = UDim2.new(0, 0, 0, 40)
+navFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+navFrame.BorderSizePixel = 0
+navFrame.Parent = mainFrame
+
+local navCorner = Instance.new("UICorner")
+navCorner.CornerRadius = UDim.new(0, 8)
+navCorner.Parent = navFrame
+
+-- Заголовок PAGES
+local pagesTitle = Instance.new("TextLabel")
+pagesTitle.Name = "PagesTitle"
+pagesTitle.Size = UDim2.new(1, -20, 0, 30)
+pagesTitle.Position = UDim2.new(0, 10, 0, 10)
+pagesTitle.BackgroundTransparency = 1
+pagesTitle.Text = "PAGES"
+pagesTitle.TextColor3 = Color3.fromRGB(200, 200, 200)
+pagesTitle.TextSize = 14
+pagesTitle.Font = Enum.Font.GothamSemibold
+pagesTitle.TextXAlignment = Enum.TextXAlignment.Left
+pagesTitle.Parent = navFrame
+
+-- Список кнопок навигации
+local navButtons = {
+    "Home",
+    "Local Player",
+    "Executor",
+    "Scripts",
+    "Gear",
+    "Players"
+}
+
+local buttonInstances = {}
+
+for i, buttonName in ipairs(navButtons) do
+    local button = Instance.new("TextButton")
+    button.Name = buttonName .. "Button"
+    button.Size = UDim2.new(1, -20, 0, 35)
+    button.Position = UDim2.new(0, 10, 0, 50 + (i-1) * 40)
+    button.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    button.BorderSizePixel = 0
+    button.Text = buttonName
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.TextSize = 14
+    button.Font = Enum.Font.Gotham
+    button.Parent = navFrame
+    
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 6)
+    buttonCorner.Parent = button
+    
+    -- Эффект при наведении
+    button.MouseEnter:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(55, 55, 55)}):Play()
+    end)
+    
+    button.MouseLeave:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)}):Play()
+    end)
+    
+    buttonInstances[buttonName] = button
+end
+
+-- Область контента справа
+local contentFrame = Instance.new("Frame")
+contentFrame.Name = "ContentFrame"
+contentFrame.Size = UDim2.new(0, 250, 0, 460)
+contentFrame.Position = UDim2.new(0, 150, 0, 40)
+contentFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+contentFrame.BorderSizePixel = 0
+contentFrame.Parent = mainFrame
+
+-- Заголовок HOME в контенте
+local homeTitle = Instance.new("TextLabel")
+homeTitle.Name = "HomeTitle"
+homeTitle.Size = UDim2.new(1, -20, 0, 30)
+homeTitle.Position = UDim2.new(0, 10, 0, 10)
+homeTitle.BackgroundTransparency = 1
+homeTitle.Text = "HOME"
+homeTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+homeTitle.TextSize = 18
+homeTitle.Font = Enum.Font.GothamBold
+homeTitle.TextXAlignment = Enum.TextXAlignment.Left
+homeTitle.Parent = contentFrame
+
+-- Перетаскивание окна
+local dragging = false
+local dragInput, dragStart, startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+topBar.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = mainFrame.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+topBar.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+-- Функционал кнопок (можно добавить позже)
+for buttonName, button in pairs(buttonInstances) do
+    button.MouseButton1Click:Connect(function()
+        print("Нажата кнопка: " .. buttonName)
+        -- Здесь можно добавить логику переключения страниц
+    end)
+end
+
+print("AntiEz executor GUI успешно загружен!")
