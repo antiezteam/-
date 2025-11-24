@@ -1,4 +1,94 @@
 -- ANTI EZ TEAM GUI V 2.5
+-- Просто добавьте этот код в начало вашего рабочего скрипта после создания элементов:
+
+-- СТИЛЬ ДЛЯ ГЛАВНОГО ФРЕЙМА
+local mainCorner = Instance.new("UICorner")
+mainCorner.CornerRadius = UDim.new(0, 12)
+mainCorner.Parent = MainFrame
+
+local mainStroke = Instance.new("UIStroke")
+mainStroke.Color = Color3.fromRGB(100, 100, 200)
+mainStroke.Thickness = 2
+mainStroke.Parent = MainFrame
+
+-- СТИЛЬ ДЛЯ ЗАГОЛОВКА
+local titleCorner = Instance.new("UICorner")
+titleCorner.CornerRadius = UDim.new(0, 12)
+titleCorner.Parent = TitleLabel
+
+-- СТИЛЬ ДЛЯ КНОПКИ GUI
+local toggleCorner = Instance.new("UICorner")
+toggleCorner.CornerRadius = UDim.new(0, 8)
+toggleCorner.Parent = ToggleGUIButton
+
+local toggleStroke = Instance.new("UIStroke")
+toggleStroke.Color = Color3.fromRGB(100, 100, 200)
+toggleStroke.Thickness = 2
+toggleStroke.Parent = ToggleGUIButton
+
+-- СТИЛЬ ДЛЯ TEXTBOX
+local scriptCorner = Instance.new("UICorner")
+scriptCorner.CornerRadius = UDim.new(0, 8)
+scriptCorner.Parent = ScriptBox
+
+local scriptStroke = Instance.new("UIStroke")
+scriptStroke.Color = Color3.fromRGB(80, 80, 120)
+scriptStroke.Thickness = 1
+scriptStroke.Parent = ScriptBox
+
+-- СТИЛЬ ДЛЯ КНОПКИ EXECUTE
+local executeCorner = Instance.new("UICorner")
+executeCorner.CornerRadius = UDim.new(0, 8)
+executeCorner.Parent = ExecuteButton
+
+local executeStroke = Instance.new("UIStroke")
+executeStroke.Color = Color3.fromRGB(0, 255, 150)
+executeStroke.Thickness = 2
+executeStroke.Parent = ExecuteButton
+
+-- СТИЛЬ ДЛЯ КНОПКИ ВЫБОРА ИГР
+local selectCorner = Instance.new("UICorner")
+selectCorner.CornerRadius = UDim.new(0, 10)
+selectCorner.Parent = SelectGameButton
+
+local selectStroke = Instance.new("UIStroke")
+selectStroke.Color = Color3.fromRGB(255, 180, 80)
+selectStroke.Thickness = 2
+selectStroke.Parent = SelectGameButton
+
+-- ФУНКЦИЯ ДЛЯ КРАСИВЫХ КНОПОК (добавьте после создания всех кнопок)
+local buttons = {
+    FEButton, NaturalDisasterButton, InfinityYieldButton,
+    RemoteSpyButton, FEBypassButton, ServerSideButton,
+    ScanButton, AntiezteamDecalButton, BtoolsButton,
+    SuperRingButton, BrookhavenButton, BloxFruitsButton
+}
+
+for _, button in pairs(buttons) do
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 6)
+    corner.Parent = button
+    
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = button.BackgroundColor3 * 1.3
+    stroke.Thickness = 1
+    stroke.Parent = button
+end
+
+-- ОБНОВЛЯЕМ ЦВЕТА ДЛЯ КРАСОТЫ
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+TitleLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 80)
+ToggleGUIButton.BackgroundColor3 = Color3.fromRGB(40, 40, 80)
+ScriptBox.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+
+-- ОБНОВЛЯЕМ ТЕКСТ ДЛЯ КРАСОТЫ
+ToggleGUIButton.Text = "🎮 GUI"
+TitleLabel.Text = "✨ ANTIEZTEAM GUI V 2.5 ✨"
+SelectGameButton.Text = "🎮 ВЫБРАТЬ ИГРУ (FE DISABLED)"
+ScriptBox.PlaceholderText = "📝 Enter your script..."
+ExecuteButton.Text = "⚡ EXECUTE"
+
+print("✨ Красивый дизайн добавлен!")
 local function createGUI()
 	local Players = game:GetService("Players")
 	local player = Players.LocalPlayer
